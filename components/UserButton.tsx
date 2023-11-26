@@ -9,7 +9,7 @@ import {
   } from "@/components/ui/dropdown-menu"
 import UserAvatar from "./UserAvatar"
 import { Session } from "inspector"
-import { signIn } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react"
 import { Button } from "./ui/button"
   
 
@@ -23,6 +23,7 @@ export default function UserButton({ session }: {session: Session | null })  {
         )
 
     return (
+        session && ( 
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <UserAvatar name={session?.user?.name} 
@@ -31,14 +32,15 @@ export default function UserButton({ session }: {session: Session | null })  {
                  />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel>{session.user?.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+           
+                <DropdownMenuItem onClick={()=> signOut()}>
+                    Sign Out
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
 
+        )
     )
 }
