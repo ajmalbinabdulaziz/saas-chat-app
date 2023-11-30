@@ -1,8 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import DemoPng from "@/images/landingPage/chatDemo.png"
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/auth'
 
 export default function Home() {
+  const session = getServerSession(authOptions)
+   
   return (
     <>
       <div className='relative isolate pt-14 dark:bg-gray-900'>
